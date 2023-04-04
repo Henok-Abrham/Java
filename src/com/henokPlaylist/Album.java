@@ -14,12 +14,12 @@ public class Album {
     public Album(String name, String artist){
       this.name=name;
       this.artist=artist;
-      this.songs=songs;
+      this.songs=new ArrayList<Song>();
     }
  public Song findSong(String title){
      for (Song checkSong:
-          songs) {
-         if(checkSong.getTitle().equalsIgnoreCase(title)){
+          this.songs) {
+         if(checkSong.getTitle().equals(title)){
              return checkSong;
          }
      }
@@ -48,10 +48,14 @@ public class Album {
      return false;
  }
  public boolean addToPlayList(String title,LinkedList<Song> playlist){
-        Song found=this.findSong(title);
-        if(found!=null){
-            playlist.add(found);
-        }
+     for (Song found:
+          this.songs) {
+         if(found.getTitle().equals(title)){
+             playlist.add(found);
+             return true;
+         }
+
+     }
      System.out.println("This album does not have song with title "+title);
      return false;
  }
